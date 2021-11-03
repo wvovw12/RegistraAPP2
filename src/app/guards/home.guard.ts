@@ -14,7 +14,7 @@ export class HomeGuardGuard implements CanActivate {
   };
 
   async validar() {
-    if(this.storage.get('Habilitado')) {
+    if(await this.storage.get('Habilitado')) {
       console.log('deberia pasar');
       return true;
     }
@@ -28,7 +28,7 @@ export class HomeGuardGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+    return this.validar();
   }
 
 }

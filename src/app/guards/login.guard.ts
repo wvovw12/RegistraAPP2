@@ -16,7 +16,7 @@ export class LoginGuardGuard implements CanActivate {
   };
 
   async validar() {
-    if(this.storage.get('Habilitado')) {
+    if(await this.storage.get('Habilitado')) {
       console.log('deberia pasar');
       this.navCtrl.navigateRoot('home');
       return false;
