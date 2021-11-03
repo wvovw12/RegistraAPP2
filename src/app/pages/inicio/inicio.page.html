@@ -9,7 +9,7 @@
       RegistraAPP
     </ion-title>
       <ion-button slot="end" fill="clear" (click)="exitConfirm()">
-        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+        <ion-icon slot="icon-only" name="log-out-outline" color="danger"></ion-icon>
       </ion-button>
 
   </ion-toolbar>
@@ -17,7 +17,7 @@
   </ion-header>
 
 <ion-content>
-  <ion-item>
-    <h3>Bienvenido {{usuario.user}} </h3>
+  <ion-item color="secondary">
+    <h3 color="white">Bienvenido/a <span style="color: #fbbd1e;">{{usuario.user}}</span></h3>
   </ion-item>
 </ion-content>

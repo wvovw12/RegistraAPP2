@@ -13,8 +13,8 @@
     <ion-label position="floating">Contraseña</ion-label>
     <ion-input type="password" name="psw" id="password" required [(ngModel)]="usuario.password"></ion-input>
   </ion-item>
-  <ion-button type="submit" expand="block" [disabled]="formulario.invalid">Registrar</ion-button>
-  <ion-button expand="block" routerLink="../login" color="warning">Volver</ion-button>
+  <ion-button type="submit" expand="block" [disabled]="formulario.invalid" color="secondary">Registrar</ion-button>
+  <ion-button expand="block" routerLink="../login" color="primary">Volver</ion-button>
 </form>
 
 </ion-content>

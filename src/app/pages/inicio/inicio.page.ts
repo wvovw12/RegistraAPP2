@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { ValidacionUsuario } from '../../interfaces/validacion-usuario';
+import { AlertController, NavController } from '@ionic/angular';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class InicioPage implements OnInit {
     user:''
   };
 
-  constructor(private storage:Storage) { }
+  constructor(private storage:Storage, private alertController:AlertController, private navCtrl:NavController) { }
 
   ngOnInit() {
     this.mostrarUser();
@@ -26,5 +27,24 @@ export class InicioPage implements OnInit {
     this.usuario.user = usr;
 
   };
+
+  async exitConfirm() {
+    this.presentAlert('¿Esta seguro que desea cerrar sesión?');
+  }
+
+
+  async presentAlert(mensaje: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'personalizada',
+      header: 'Confirmar cerrar sesión',
+      message: mensaje,
+      buttons: [{text:'Si', handler: () =>  {
+        this.storage.remove('Habilitado');
+        this.navCtrl.navigateForward('login');}}, 'No'],
+
+    });
+
+    await alert.present();
+  }
 
 }
