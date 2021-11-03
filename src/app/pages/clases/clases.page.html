@@ -1,0 +1,42 @@
+<ion-item class="animate__animated animate__fadeInLeft" >
+<ion-header [translucent]="true" color="primary">
+
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="first" color="primary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Asignaturas
+    </ion-title>
+    <ion-button slot="end" fill="clear">
+      <ion-icon slot="icon-only" name="book"  ></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+
+
+
+</ion-header>
+</ion-item>
+
+<ion-content>
+  
+
+  <ion-content >
+    <ion-text color="primary">
+      <ion-list *ngFor="let per of personas" >
+        <ion-item class="animate__animated animate__fadeInLeft" style="border-style: dotted; border-bottom-color: rgb(37, 100, 216); border-top: 0px; border-right: 0px; border-left: 0px;">
+          <ion-icon slot="start" name="book"></ion-icon>
+          <ion-label>
+            <h2>{{per.nombre}}</h2>
+            <p>Profesor: {{per.apellido}}       </p><p>Asistencia: {{per.asistencia}}</p>
+            
+          </ion-label>
+          
+          
+        </ion-item>
+      </ion-list>
+    </ion-text>
+    </ion-content>
+
+</ion-content>
