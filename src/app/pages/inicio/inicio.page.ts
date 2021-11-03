@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< refs/remotes/origin/Diego
 import { Storage } from '@ionic/storage-angular';
 import { ValidacionUsuario } from '../../interfaces/validacion-usuario';
 
-=======
->>>>>>> Inicio proyecto
 
 @Component({
   selector: 'app-inicio',
@@ -13,7 +10,6 @@ import { ValidacionUsuario } from '../../interfaces/validacion-usuario';
 })
 export class InicioPage implements OnInit {
 
-<<<<<<< refs/remotes/origin/Diego
   usuario:ValidacionUsuario={
     desc:'',
     user:''
@@ -31,11 +27,4 @@ export class InicioPage implements OnInit {
 
   };
 
-=======
-  constructor() { }
-
-  ngOnInit() {
-  }
-
->>>>>>> Inicio proyecto
 }

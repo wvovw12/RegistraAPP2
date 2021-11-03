@@ -14,11 +14,7 @@ export class HomeGuardGuard implements CanActivate {
   };
 
   async validar() {
-<<<<<<< refs/remotes/origin/Diego
     if(await this.storage.get('Habilitado')) {
-=======
-    if(this.storage.get('Habilitado')) {
->>>>>>> Inicio proyecto
       console.log('deberia pasar');
       return true;
     }
@@ -32,11 +28,7 @@ export class HomeGuardGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-<<<<<<< refs/remotes/origin/Diego
     return this.validar();
-=======
-    return true;
->>>>>>> Inicio proyecto
   }
 
 }
