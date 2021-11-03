@@ -16,7 +16,11 @@ export class LoginGuardGuard implements CanActivate {
   };
 
   async validar() {
+<<<<<<< refs/remotes/origin/Diego
     if(await this.storage.get('Habilitado')) {
+=======
+    if(this.storage.get('Habilitado')) {
+>>>>>>> Inicio proyecto
       console.log('deberia pasar');
       this.navCtrl.navigateRoot('home');
       return false;
