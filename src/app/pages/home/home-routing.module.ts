@@ -19,6 +19,7 @@ const routes: Routes = [
         path: 'qrcode',
         loadChildren: () => import('../qr-page/qr-page.module').then(m => m.QrPagePageModule)
       },
+      
       {
         path: '',
         redirectTo: 'tabs/inicio',
