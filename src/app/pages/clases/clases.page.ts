@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from 'src/app/services/database.service';
+import { Clase } from '../../interfaces/clase';
+import { Storage } from '@ionic/storage-angular';
+
 
 @Component({
   selector: 'app-asignaturas',
@@ -7,63 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClasesPage implements OnInit {
 
-  personas=[{
-    nombre:'Programacion AppMoviles 003D',
-    apellido:'Alejandro Sanhueza',
-    asistencia:'120%',
-    detalles:'03-05-2021: ✔..................................................... 02-06-2021: X' ,
+  clases: Clase[] = [];
 
-  },
-  {
-    nombre:'Estadistica Descriptiva A005',
-    apellido:'Manolo Suazo',
-    asistencia:'10%',
-    detalles:`a0                         s`
- },
-
-  {
-    nombre:'Ingles D007',
-    apellido:'Claudio Palma',
-    asistencia:'68%',
-    detalles:'03-05-2021: ✔ 02-06-2021: X' 
-
-  },
-  {
-    nombre:'Arquitectura 003D',
-    apellido:'Jazna muñoz',
-    asistencia:'85%',
-    detalles:'03-05-2021: ✔ 02-06-2021: X' 
-
-
-
-  },
-  {
-    nombre:'Calidad de Software 002D',
-    apellido:'Carlos Riffo',
-     asistencia:'70%',
-    detalles:'03-05-2021: ✔ 02-06-2021: X' 
-
-  },
-  {
-    nombre:'Etica para el trabajo 002D',
-    apellido:'Claudia Palma',
-    asistencia:'100%',
-    detalles:'03-05-2021: ✔ 02-06-2021: X' 
-
-
-  },
-  {
-    nombre:'Proceso Portafolio 420D',
-    apellido:'Andres Trujillo',
-    asistencia:'0%',
-    detalles:'03-05-2021: ✔ 02-06-2021: X' 
-
-  },
-    ];
-
-  constructor() { }
+  constructor(public database:DatabaseService, private storage:Storage) { }
 
   ngOnInit() {
+    this.getClases();
   }
+
+  async getClases() {
+    const enlace = 'Clases';
+    const parametro = 'user';
+    let usr = await this.storage.get('Habilitado');
+    this.database.getCollectionQuery<Clase>(enlace, parametro, usr).subscribe(res => this.clases = res);
+
+
+  }
+
 
 }

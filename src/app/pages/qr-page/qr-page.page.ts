@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import { AlertController } from '@ionic/angular';
+import { DatabaseService } from 'src/app/services/database.service';
+import { Clase } from '../../interfaces/clase';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-qr-page',
@@ -8,30 +12,78 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 })
 export class QrPagePage implements OnInit {
 
-  constructor(private qrScanner:QRScanner) { }
+  class: Clase = {
+    name:'',
+    hora: null,
+    fecha: null,
+    user: ''
+  };
+
+  constructor(private qrScanner:QRScanner, private alertController:AlertController, public database:DatabaseService,
+    private storage:Storage) { }
 
   ngOnInit() {
 
+
+  }
+
+  /*async ionViewWillEnter(){
+    await this.startScan();
+  }*/
+
+  async presentAlert(mensaje:any) {
+    const alert = await this.alertController.create({
+      cssClass: 'personalizada',
+      header: 'Listo',
+      message: 'Se ha registrado su asistencia a la clase: ' + mensaje,
+      buttons: [{text:'OK', handler: () => {
+        document.getElementsByTagName('ion-content')[0].style.opacity = '1';}}],
+    });
+
+    await alert.present();
+
+  }
+
+  startScan() {
     this.qrScanner.prepare().then((status: QRScannerStatus) => {
      if (status.authorized) {
       this.qrScanner.show();
-      (window.document.querySelector('ion-content') as HTMLElement).classList.add('background: none');
+      //document.getElementsByTagName('ion-header')[0].style.opacity='0';
+      document.getElementsByTagName('ion-content')[0].style.opacity = '0';
+      //document.getElementsByTagName('ion-app')[0].style.opacity = '0';
 
-       let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-         console.log('Scanned something', text);
+      // start scanning
+      let scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
+        console.log('Se ha escaneado: ', text);
+        this.presentAlert(text);
+        this.qrScanner.hide();
+        scanSub.unsubscribe();
 
-         this.qrScanner.hide();
-         scanSub.unsubscribe();
-         (window.document.querySelector('ion-content') as HTMLElement).classList.remove('background: none');
+        let hour = new Date();
+        let date = new Date();
+        let usr = await this.storage.get('Habilitado');
+        this.class.user = usr;
+        this.class.hora = hour.getHours() + ':' + hour.getMinutes();
+        this.class.fecha = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+        this.class.name = text;
+        //alert(usr + '|' + hour + '|' + date + '|' + text);
+        const data = this.class;
+        const enlace = 'Clases';
+        this.database.createDocument<Clase>(data, enlace);
+
+        //document.getElementsByTagName('ion-app')[0].style.opacity = '1';
+
        });
 
      } else if (status.denied) {
+
 
      } else {
 
      }
   })
   .catch((e: any) => console.log('Error is', e));
+
   }
 
 }

@@ -1,47 +1,49 @@
 <ion-item class="animate__animated animate__fadeInLeft" >
-  <ion-header>  
+  <ion-header>
   <ion-toolbar>
       <ion-buttons slot="start">
         <ion-menu-button menu="first" color="primary"></ion-menu-button>
       </ion-buttons>
       <ion-title>
-        Asignaturas
+        Clases
       </ion-title>
       <ion-button slot="end" fill="clear">
         <ion-icon slot="icon-only" name="book"  ></ion-icon>
       </ion-button>
     </ion-toolbar>
-  
-  
-  
+
+
+
   </ion-header>
   </ion-item>
-  
+
   <ion-content>
-    
-  
+
+
     <ion-content >
-      
+
       <div id="faq">
         <ul>
-          <ion-list *ngFor="let per of personas" class="animate__animated animate__fadeInLeft">
+          <ion-list *ngFor="let class of clases" class="animate__animated animate__fadeInLeft">
             <li>
               <input type="checkbox" checked>
               <i></i>
-             
-              <h2>{{per.nombre}} </h2>    <h2>Asistencia: {{per.asistencia}}</h2> 
-              <p>{{per.detalles}}
+
+              <h4 color="primary">{{class.name}} </h4>    <h5 color="secondary">Asistencia:</h5>
+              <p>
+                Hora: {{class.hora}}
               </p>
+              <p>Fecha: {{class.fecha}}</p>
             </li>
           </ion-list>
-           
+
         </ul>
-      
-      
-      
+
+
+
       </div>
-      
+
       </ion-content>
-  
+
   </ion-content>
-  
+
