@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { HomePage } from './home.page';
 
+
 const routes: Routes = [
   {
     path: 'tabs',
     component: HomePage,
+
     children: [
       {
         path: 'clases',
@@ -20,17 +22,21 @@ const routes: Routes = [
         loadChildren: () => import('../qr-page/qr-page.module').then(m => m.QrPagePageModule)
       },
       {
+        path: 'asistencia/:id',
+        loadChildren: () => import('../asistencia/asistencia.module').then(m => m.AsistenciaPageModule)
+      },
+      {
         path: '',
         redirectTo: 'tabs/inicio',
         pathMatch: 'full'
-      }
+      },
     ]
   },
   {
     path: '',
     redirectTo: 'tabs/inicio',
     pathMatch: 'full'
-  }
+  },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

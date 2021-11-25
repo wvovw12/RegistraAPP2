@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from 'src/app/services/database.service';
-import { Clase } from '../../interfaces/clase';
+import { Asignaturas } from '../../interfaces/asignaturas';
 import { Storage } from '@ionic/storage-angular';
-
 
 @Component({
   selector: 'app-asignaturas',
@@ -11,22 +10,21 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class ClasesPage implements OnInit {
 
-  clases: Clase[] = [];
+  asignaturas: Asignaturas[] = [];
 
-  constructor(public database:DatabaseService, private storage:Storage) { }
+  constructor(public database: DatabaseService, private storage: Storage) { }
 
   ngOnInit() {
-    this.getClases();
+    this.getAsignaturas();
   }
 
-  async getClases() {
-    const enlace = 'Clases';
-    const parametro = 'user';
+  async getAsignaturas() {
+    const enlace = 'Asignaturas';;
+    //let userDatabase = this.database.getCollectionChanges<Usuario>('Usuarios').subscribe(res => this.usuarios = res);
     let usr = await this.storage.get('Habilitado');
-    this.database.getCollectionQuery<Clase>(enlace, parametro, usr).subscribe(res => this.clases = res);
+    this.database.getCollectionChanges<Asignaturas>(enlace).subscribe(data => this.asignaturas = data);
 
 
   }
-
 
 }
