@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Clase } from '../../interfaces/clase';
 import { Storage } from '@ionic/storage-angular';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-qr-page',
@@ -19,8 +20,10 @@ export class QrPagePage implements OnInit {
     user: ''
   };
 
-  constructor(private qrScanner:QRScanner, private alertController:AlertController, public database:DatabaseService,
-    private storage:Storage) { }
+  teacherEmail: string;
+
+  constructor(private qrScanner: QRScanner, private alertController: AlertController, public database: DatabaseService,
+    private storage: Storage, private socialSharing: SocialSharing) { }
 
   ngOnInit() {
 
@@ -64,7 +67,7 @@ export class QrPagePage implements OnInit {
         let usr = await this.storage.get('Habilitado');
         this.class.user = usr;
         this.class.hora = hour.getHours() + ':' + hour.getMinutes();
-        this.class.fecha = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+        this.class.fecha = date.getDate() + '/' + Number(date.getMonth()+1).toString() + '/' + date.getFullYear();
         this.class.name = text;
         //alert(usr + '|' + hour + '|' + date + '|' + text);
         const data = this.class;
@@ -72,6 +75,17 @@ export class QrPagePage implements OnInit {
         this.database.createDocument<Clase>(data, enlace);
 
         //document.getElementsByTagName('ion-app')[0].style.opacity = '1';
+        this.database.firestore.collection('Asignaturas').doc(text).get().subscribe(res => {
+          if(res.exists) {
+            this.teacherEmail = res.get('teacherEmail');
+
+            this.socialSharing.shareViaEmail('El alumno '+ this.class.user + ' se ha registrado a su clase: ' + text, 'RegistrApp',
+              [this.teacherEmail]).then(() => {
+
+              });
+
+          }
+        });
 
        });
 
@@ -82,7 +96,7 @@ export class QrPagePage implements OnInit {
 
      }
   })
-  .catch((e: any) => console.log('Error is', e));
+  .catch((e: any) => console.log('Ha ocurrido un error, código:', e));
 
   }
 

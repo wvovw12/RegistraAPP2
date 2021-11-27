@@ -13,7 +13,7 @@
 
 <ion-content>
 
-  <div id="faq">
+  <div id="faq" *ngIf="clases">
     <ul>
       <ion-list *ngFor="let clase of clases" class="animate__animated animate__fadeInLeft">
         <li>
@@ -28,5 +28,8 @@
       </ion-list>
     </ul>
   </div>
+
+  <ion-icon name="document-text-outline" id="notFoundIcon" color="medium"></ion-icon>
+  <ion-item class="ion-padding d" lines="none" disabled>Usted no ha registrado clases en esta asignatura</ion-item>
 
 </ion-content>

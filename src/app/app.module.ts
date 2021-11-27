@@ -11,6 +11,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { AngularFirestoreDocument, AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { AngularFireModule } from '@angular/fire/compat';
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig), AngularFirestoreModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, QRScanner],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, QRScanner, SocialSharing],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

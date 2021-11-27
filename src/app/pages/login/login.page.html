@@ -8,8 +8,7 @@
         <ion-col size="8" class="ion-padding">
           <form #LogForm="ngForm" (ngSubmit)="onSubmit()" >
 
-            <ion-title></ion-title>
-            <h3>Ingrese sus datos</h3>
+            <ion-item  id="ingresaDatosTitle" lines="none">Ingrese sus datos</ion-item>
             <ion-item class="ion-padding-top animate__animated animate__fadeIn">
 
               <ion-label position="floating">Usuario</ion-label>
@@ -29,7 +28,7 @@
             </ion-text>
 
             <div class="ion-padding-top  animate__animated animate__fadeIn">
-              <ion-button class="blueBackGr" type="submit" expand="block" [disabled]="LogForm.invalid"  mode="md">
+              <ion-button class="blueBg" type="submit" expand="block" [disabled]="LogForm.invalid"  mode="md">
                 Ingresar
 
               </ion-button>
